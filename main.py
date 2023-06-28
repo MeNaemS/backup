@@ -14,12 +14,5 @@ if __name__ == '__main__':
     file_path = choose_file()
     value = input()
     check_adress = Checker(value)
-    if check_adress.boolean is False:
-        raise ValueError('Email address is not valid')
-    if check_adress.option == 'phone':
-        from sys import exit
-
-        print('We apologize, at the moment support for a phone number for backup in Yandex Disk is not available')
-        exit()
     password = input()
     yandex_backup(value, password, check_adress.option, file_path)
