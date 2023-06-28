@@ -12,7 +12,7 @@ def choose_file() -> str:
 
 if __name__ == '__main__':
     file_path = choose_file()
-    value = 'ilikesleeping268@ya.ru'
+    value = input()
     check_adress = Checker(value)
     if check_adress.boolean is False:
         raise ValueError('Email address is not valid')
@@ -21,5 +21,5 @@ if __name__ == '__main__':
 
         print('We apologize, at the moment support for a phone number for backup in Yandex Disk is not available')
         exit()
-    password = 'GooglePasswordMadeWithMe'
+    password = input()
     yandex_backup(value, password, check_adress.option, file_path)
