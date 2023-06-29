@@ -12,6 +12,23 @@ def add_options() -> ChromeOptions:
     return options
 
 
+# Specifies from the user whether he wants to use the phone number, warning about possible errors, returns a tuple.
+# Used in the yandex_backup function.
+def rectification(value: str, option: str) -> (str, str):
+    warning = [
+        'Continued use of a phone number when logging into Yandex disk may result in an error sending a code to the number.',
+        'Are you sure you want to use phone number login?',
+        '1 — Yes.',
+        '0 — No.'
+    ]
+    print('\n'.join(warning))
+    while True:
+        re_elect = input()
+        if re_elect in ['0', '1']: break
+        else: print('Incorrect response number')
+    return (input('Please enter your email address from Yandex Disk: '), 'email') if re_elect == '0' else (value, option)
+
+
 # Finding elements of type button[data-type="login"] and button[data-type="phone"] to determine the active button.
 # Used in the log_in function.
 def definition_of_active_button(driver: Chrome, option: str):
@@ -27,7 +44,7 @@ def definition_of_active_button(driver: Chrome, option: str):
 
 # Gets the code input object, if any, and prints the results to the console, otherwise fails.
 # Used in the log_in function
-def code_activation(driver: Chrome, timeout: float = 3):
+def code_activation(driver: Chrome, timeout: float = 1.5):
     from selenium.webdriver.support.wait import WebDriverWait
     from selenium.webdriver.support import expected_conditions as ec
     from selenium.common.exceptions import TimeoutException
@@ -80,6 +97,9 @@ def log_in(driver: Chrome, value: str, password: str, option: str):
 # Actions with Yandex Account and Yandex Disk.
 # Used in main.py file.
 def yandex_backup(value: str, password: str, option: str, file_path: str):
+    # if option == 'phone': value, option = rectification(value, option)
+    if option == 'phone': print(rectification(value, option))
+
     options = add_options()
     driver = Chrome(options=options)
     driver.get('https://360.yandex.com/disk/')
