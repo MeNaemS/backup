@@ -24,3 +24,7 @@ class Chrome(webdriver.Chrome):
     def send_keys(self, by: By, element: str, value: str, timeout: int = 10):
         WebDriverWait(self, timeout=timeout).until(ec.visibility_of_element_located((by, element)))
         self.find_element(by, element).send_keys(value)
+
+    def send_file(self, by: By, element: str, filename: str, timeout: int = 10):
+        WebDriverWait(self, timeout=timeout).until(ec.visibility_of_all_elements_located((By.TAG_NAME, 'html')))
+        self.find_element(by, element).send_keys(filename)
