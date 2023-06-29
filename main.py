@@ -1,4 +1,4 @@
-from checker.checker import Checker
+from determinant.determinant import determinant
 from disks.yandex_disk import yandex_backup
 
 
@@ -12,7 +12,6 @@ def choose_file() -> str:
 
 if __name__ == '__main__':
     file_path = choose_file()
-    value = input()
-    check_adress = Checker(value)
-    password = input()
-    yandex_backup(value, password, check_adress.option, file_path)
+    value = input('Enter email or phone number: ')
+    password = input('Enter your account password: ')
+    yandex_backup(value, password, determinant(value), file_path)
